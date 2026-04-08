@@ -17,7 +17,7 @@ LOFI_STREAM_URL: str = os.getenv(
     "LOFI_STREAM_URL", "https://www.youtube.com/watch?v=jfKfPfyJRdk"
 )
 
-# ── Audio ──────────────────────��──────────────────────────────────────────────
+# ── Audio ─────────────────────────────────────────────────────────────────────
 SAMPLE_RATE: int = 48_000          # Hz  — Discord requirement
 CHANNELS: int = 2                  # Stereo
 SAMPLE_WIDTH: int = 2              # Bytes per sample (s16le)
@@ -32,9 +32,9 @@ BUFFER_MAX_FRAMES: int = (
     BUFFER_DURATION_SECONDS * 1000 // FRAME_DURATION_MS
 )                                  # = 1500 frames
 
-BUFFER_READY_THRESHOLD: int = 150  # 3 seconds
-BUFFER_WARN_THRESHOLD: int = 450   # 9 seconds
-BUFFER_CRITICAL_THRESHOLD: int = 150  # 3 seconds
+BUFFER_READY_THRESHOLD: int = 150  # 3 seconds — min frames before source is "ready"
+BUFFER_WARN_THRESHOLD: int = 450   # 9 seconds — log warning
+BUFFER_CRITICAL_THRESHOLD: int = 75  # 1.5 seconds — trigger emergency restart
 
 # ── Restart / Scheduling ──────────────────────────────────────────────────────
 PROACTIVE_RESTART_MINUTES: int = 35
