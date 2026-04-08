@@ -67,7 +67,8 @@ class LofiBot(commands.Bot):
         )
 
     async def on_error(self, event: str, *args, **kwargs) -> None:
-        log.exception("Unhandled error in event '%s'., event")
+        log.exception("Unhandled error in event '%s'.", event)
+
 
 def main() -> None:
     if not DISCORD_TOKEN:
@@ -79,6 +80,7 @@ def main() -> None:
 
     bot = LofiBot()
     bot.run(DISCORD_TOKEN, log_handler=None)
+
 
 if __name__ == "__main__":
     main()
