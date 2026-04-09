@@ -101,7 +101,7 @@ class StreamManager:
                 return
             await self._do_restart(reason=reason)
 
-    # ── yt-dlp ────────────────────────────────────────────────────────────────
+    # ── yt-dlp ─────────────────────────────���─────────────────────────────────
 
     async def _extract_url(self) -> str:
         url = "INVALID://force-error" if self._force_bad_url else self.stream_url
@@ -313,7 +313,7 @@ class StreamManager:
         except asyncio.CancelledError:
             log.info("Scheduler task cancelled.")
 
-    # ── Debug helpers ─────────────────���───────────────────────────────────────
+    # ── Debug helpers ─────────────────────────────────────────────────────────
 
     def debug_pause_producer(self) -> None:
         self._producer_paused.set()
@@ -341,7 +341,7 @@ class StreamManager:
         log.info("[DEBUG] Restart interval set to %ds.", seconds)
         if self._scheduler_task:
             self._scheduler_task.cancel()
-            loop = asyncio.get_event_loop()
+            loop = asyncio.get_running_loop()
             self._scheduler_task = loop.create_task(
                 self._scheduler_loop(), name="stream-scheduler"
             )
