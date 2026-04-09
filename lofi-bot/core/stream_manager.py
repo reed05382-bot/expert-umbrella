@@ -182,10 +182,7 @@ class StreamManager:
 
     # ── Producer thread ───────────────────────────────────────────────────────
 
-    def _start_producer(self, proc: subprocess.Popen) -> threading.Thread:
-        stop_event = threading.Event()
-        self._producer_stop = stop_event
-
+    def _start_producer(self, proc: subprocess.Popen, stop_event: threading.Event) -> threading.Thread:
         def _run() -> None:
             log.debug("Producer thread started.")
             stdout = proc.stdout
@@ -228,7 +225,8 @@ class StreamManager:
             return
 
         new_proc = self._spawn_ffmpeg(audio_url)
-        new_producer = self._start_producer(new_proc)
+        new_stop = threading.Event()
+        new_producer = self._start_producer(new_proc, new_stop)
 
         loop = asyncio.get_running_loop()
 
@@ -259,6 +257,7 @@ class StreamManager:
         self._kill_ffmpeg()
 
         self._ffmpeg_proc = new_proc
+        self._producer_stop = new_stop
         self._producer_thread = new_producer
         self._monitor = new_monitor
 
